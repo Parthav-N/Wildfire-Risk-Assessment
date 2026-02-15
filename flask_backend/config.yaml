@@ -1,0 +1,65 @@
+# Data paths
+data:
+  fires: "D:/wildfire-risk-system/data/fires/fire_archive_SV-C2_716427.csv"
+  infrastructure: "D:/wildfire-risk-system/data/infrastructure/all_infrastructure_with_residential.csv"
+  training: "D:/wildfire-risk-system/data/training_dataset_final.csv"
+
+# Output
+output:
+  vector_db: "vector_db.pkl"
+
+# Embedding model
+embedding:
+  model_name: "all-MiniLM-L6-v2"
+  batch_size: 32
+
+# Document generation settings
+processing:
+  fire_events:
+    enabled: true
+    group_by: "acq_date"
+    
+  infrastructure:
+    enabled: true
+    min_city_count: 5
+    
+  risk_scenarios:
+    enabled: true
+    min_risk_score: 70
+    max_samples: 200
+    
+  major_fires:
+    enabled: true
+    
+  weather_analysis:
+    enabled: true
+    extreme_wind_threshold: 40
+    extreme_temp_threshold: 35
+    low_humidity_threshold: 20
+
+# Column mappings (UPDATED to match your actual columns)
+columns:
+  fires:
+    date: "acq_date"
+    lat: "latitude"
+    lon: "longitude"
+    frp: "frp"
+    brightness: "brightness"
+    
+  infrastructure:
+    id: "name"  # Changed: use 'name' as identifier since no 'id' column
+    type: "type"
+    city: "city"
+    lat: "lat"
+    lon: "lon"
+    name: "name"
+    
+  training:
+    risk_score: "risk_score"
+    num_fires: "num_fires_30km"
+    wind_speed: "wind_speed_kmh"
+    min_distance: "min_distance_km"
+    max_frp: "max_frp"
+    temperature: "temperature_c"
+    humidity: "humidity"
+    wind_alignment: "wind_fire_alignment"
